@@ -1,3 +1,4 @@
+Implement representation of a backend.
 ```swift
 typealias MB = MemesBackend
 
@@ -8,18 +9,7 @@ final class MemesBackend: Backend {
 }
 ```
 
-```swift
-extension MemesBackend {
-    static func authorizationHeaders() -> HTTPHeaderFields {
-        let authToken = ... // read the token
-        return [
-            "Content-Type": "application/json",
-            "Authorization": authToken
-        ]
-    }
-}
-```
-
+Describe an endpoint. No headers specified, default will be used `["Content-Type": "application/json"]`.
 ```swift
 struct AllMemesEndpoint: Endpoint {
     var url: NSURL {
@@ -29,11 +19,23 @@ struct AllMemesEndpoint: Endpoint {
     var method: HTTPMethod {
         return .get
     }
-
-    // No headers specified, default will be used ["Content-Type": "application/json"].
 }
 ```
 
+// Implement custom headers if you need any.
+```swift
+extension MemesBackend {
+    static func authorizationHeaders() -> HTTPHeaderFields {
+        let authToken = ... // read the token from secure storage.
+        return [
+            "Content-Type": "application/json",
+            "Authorization": authToken
+        ]
+    }
+}
+```
+
+// Example of an endpoint that takes one param and need custom headers.
 ```swift
 struct GetSingleMeme: Endpoint {
     let name: String
@@ -53,6 +55,7 @@ struct GetSingleMeme: Endpoint {
 }
 ```
 
+// Example of an endpoint to sign in user.
 ```swift
 struct SignInEndpoint: Endpoint {
     let username: String
@@ -76,8 +79,8 @@ struct SignInEndpoint: Endpoint {
 }
 ```
 
+// You can get `NSURLRequest` representation of an `Endpoint` via `request` property.
 ```swift
 let endpoint = GetSingleMeme(name: "thank-you")
 let request = endpoint.request // NSURLRequest
 ```
-
