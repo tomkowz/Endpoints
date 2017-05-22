@@ -1,8 +1,8 @@
 import Foundation
 
 final class MemesBackend: Backend {
-    static var baseUrl: NSURL {
-        return NSURL(string: "http://213.32.69.32/m/api")!
+    static var baseUrl: URL {
+        return URL(string: "http://213.32.69.32/m/api")!
     }
 }
 
@@ -17,8 +17,8 @@ extension MemesBackend {
 }
 
 struct AllMemesEndpoint: Endpoint {
-    var url: NSURL {
-        return MemesBackend.baseUrl.append("/")
+    var url: URL {
+        return MemesBackend.baseUrl.append(path: "/")
     }
     
     var method: HTTPMethod {
@@ -29,8 +29,8 @@ struct AllMemesEndpoint: Endpoint {
 struct GetMemeEndpoint: Endpoint {
     let name: String
     
-    var url: NSURL {
-        return MemesBackend.baseUrl.append("/\(name)")
+    var url: URL {
+        return MemesBackend.baseUrl.append(path: "/\(name)")
     }
     
     var method: HTTPMethod {

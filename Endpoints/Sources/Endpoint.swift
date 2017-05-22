@@ -3,31 +3,31 @@ import Foundation
 public typealias HTTPHeaderFields = [String: String]
 
 public protocol Endpoint {
-    var url: NSURL { get }
+    var url: URL { get }
     var method: HTTPMethod { get }
     var headers: HTTPHeaderFields { get }
     var parameters: AnyObject? { get }
-    var cachePolicy: NSURLRequestCachePolicy { get }
-    var timeout: NSTimeInterval { get }
-    var request: NSURLRequest { get }
+    var cachePolicy: URLRequest.CachePolicy { get }
+    var timeout: TimeInterval { get }
+    var request: URLRequest { get }
 }
 
 extension Endpoint {
-    public var request: NSURLRequest {
+    public var request: URLRequest {
         var theUrl = url
         if method == .get, let parameters = parametersJSON {
             // Encode parameters and append query to request's url.
-            let urlComponents = NSURLComponents(URL: theUrl, resolvingAgainstBaseURL: true)!
+            var urlComponents = URLComponents(url: theUrl, resolvingAgainstBaseURL: true)!
             var query = ""
             parameters.forEach { k, v in query = query + "\(k)=\(v)&" }
             urlComponents.query = query
-            theUrl = urlComponents.URL!
+            theUrl = urlComponents.url!
         }
         
-        let r = NSMutableURLRequest(URL: theUrl)
-        r.HTTPMethod = method.rawValue
+        var r = URLRequest(url: theUrl)
+        r.httpMethod = method.rawValue
         r.allHTTPHeaderFields = headers
-        r.HTTPBody = parametersData
+        r.httpBody = parametersData
         r.cachePolicy = cachePolicy
         r.timeoutInterval = timeout
         return r
@@ -37,12 +37,12 @@ extension Endpoint {
         return parameters as? [String: AnyObject]
     }
     
-    private var parametersData: NSData? {
+    private var parametersData: Data? {
         if let p = parametersJSON {
-            return try? NSJSONSerialization.dataWithJSONObject(p, options: [])
+            return try? JSONSerialization.data(withJSONObject: p, options: [])
         }
         
-        return parameters as? NSData
+        return parameters as? Data
     }
 }
 
@@ -55,17 +55,17 @@ public extension Endpoint {
         return nil
     }
     
-    var cachePolicy: NSURLRequestCachePolicy {
-        return NSURLRequestCachePolicy.ReloadIgnoringLocalAndRemoteCacheData
+    var cachePolicy: URLRequest.CachePolicy {
+        return URLRequest.CachePolicy.reloadIgnoringLocalAndRemoteCacheData
     }
     
-    var timeout: NSTimeInterval {
+    var timeout: TimeInterval {
         return 3.0
     }
 }
 
-public extension NSURL {
-    func append(path: String) -> NSURL {
-        return self.URLByAppendingPathComponent(path)!
+public extension URL {
+    func append(path: String) -> URL {
+        return self.appendingPathComponent(path)
     }
 }
