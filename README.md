@@ -1,4 +1,4 @@
-Implement representation of a backend.
+Describe representation of a backend.
 ```swift
 typealias MB = MemesBackend
 
@@ -22,7 +22,7 @@ struct AllMemesEndpoint: Endpoint {
 }
 ```
 
-// Implement custom headers if you need any.
+Implement custom headers if you need any.
 ```swift
 extension MemesBackend {
     static func authorizationHeaders() -> HTTPHeaderFields {
@@ -35,7 +35,7 @@ extension MemesBackend {
 }
 ```
 
-// Example of an endpoint that takes one param and need custom headers.
+Example of an endpoint that takes one param and need custom headers.
 ```swift
 struct GetSingleMeme: Endpoint {
     let name: String
@@ -55,7 +55,7 @@ struct GetSingleMeme: Endpoint {
 }
 ```
 
-// Example of an endpoint to sign in user.
+Example of an endpoint to sign in user.
 ```swift
 struct SignInEndpoint: Endpoint {
     let username: String
@@ -79,7 +79,7 @@ struct SignInEndpoint: Endpoint {
 }
 ```
 
-// You can get `NSURLRequest` representation of an `Endpoint` via `request` property.
+You can get `NSURLRequest` representation of an `Endpoint` via `request` property.
 ```swift
 let endpoint = GetSingleMeme(name: "thank-you")
 let request = endpoint.request // NSURLRequest
