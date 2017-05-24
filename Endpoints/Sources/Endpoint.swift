@@ -6,7 +6,7 @@ public protocol Endpoint {
     var url: URL { get }
     var method: HTTPMethod { get }
     var headers: HTTPHeaderFields { get }
-    var parameters: AnyObject? { get }
+    var parameters: Any? { get }
     var cachePolicy: URLRequest.CachePolicy { get }
     var timeout: TimeInterval { get }
     var request: URLRequest { get }
@@ -51,7 +51,7 @@ public extension Endpoint {
         return ["Content-Type": "application/json"]
     }
     
-    var parameters: AnyObject? {
+    var parameters: Any? {
         return nil
     }
     

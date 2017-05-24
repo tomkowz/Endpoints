@@ -37,3 +37,20 @@ struct GetMemeEndpoint: Endpoint {
         return .get
     }
 }
+
+struct PostCommentEndpoint: Endpoint {
+    let memeName: String
+    let content: String
+    
+    var url: URL {
+        return MemesBackend.baseUrl.append(path: "/comments/\(memeName)")
+    }
+    
+    var method: HTTPMethod {
+        return .post
+    }
+    
+    var parameters: Any? {
+        return ["content": content]
+    }
+}
