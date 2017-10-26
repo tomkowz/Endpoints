@@ -42,6 +42,7 @@
 			children = (
 				6D01E6991ECDF83100BEF4F8 /* Endpoints */,
 				6D01E6981ECDF83100BEF4F8 /* Products */,
+				6DA77DE01FA1C8D50072F759 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -64,6 +65,14 @@
 				6D01E69B1ECDF83100BEF4F8 /* Info.plist */,
 			);
 			path = Endpoints;
+			sourceTree = "<group>";
+		};
+		6DA77DE01FA1C8D50072F759 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				6D01E6A21ECDF84600BEF4F8 /* Sources */,
+			);
+			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -109,7 +118,7 @@
 				TargetAttributes = {
 					6D01E6961ECDF83100BEF4F8 = {
 						CreatedOnToolsVersion = 8.2.1;
-						LastSwiftMigration = 0820;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -273,7 +282,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -293,7 +303,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.szulctomasz.Endpoints;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
