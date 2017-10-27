@@ -10,6 +10,10 @@ public protocol Endpoint {
     var cachePolicy: URLRequest.CachePolicy { get }
     var timeout: TimeInterval { get }
     var request: URLRequest { get }
+
+    // Use it if you want to set default parameters to endpoint.
+    // You can override per endpoint and globally
+    var parametersWithAdditionalPayload: Any? { get }
 }
 
 extension Endpoint {
@@ -34,7 +38,7 @@ extension Endpoint {
     }
     
     private var parametersJSON: [String: AnyObject]? {
-        return parameters as? [String: AnyObject]
+        return parametersWithAdditionalPayload as? [String: AnyObject]
     }
     
     private var parametersData: Data? {
@@ -53,6 +57,10 @@ public extension Endpoint {
     
     var parameters: Any? {
         return nil
+    }
+
+    var parametersWithAdditionalPayload: Any? {
+        return parameters
     }
     
     var cachePolicy: URLRequest.CachePolicy {
